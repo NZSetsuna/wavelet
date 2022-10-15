@@ -36,6 +36,9 @@ class Handler implements URLHandler {
                         if(fruit.get(i).contains(parameters[1])){
                             returnlist.add(fruit.get(i));
                         }
+                        else{
+                            return String.format("Nothing found!");
+                        }
                     }
                     for (int i = 0; i < returnlist.size(); i++){
                         text += returnlist.get(i);
