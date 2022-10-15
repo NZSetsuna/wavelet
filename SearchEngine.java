@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 
 class Handler implements URLHandler {
     // The one bit of state on the server: a number that will be manipulated by
     // various requests.
     int num = 0;
     int n = 0;
-    String[] fruit = new String[10];
+    // String[] fruit = new String[10];
+    ArrayList<String> fruit = new ArrayList<String>();
+    
 
     public String handleRequest(URI url) {
         if (url.getPath().equals("/")) {
@@ -22,19 +25,26 @@ class Handler implements URLHandler {
                     num += Integer.parseInt(parameters[1]);
                     return String.format("Number increased by %s! It's now %d", parameters[1], num);
                 } else if(parameters[0].equals("s")){
-                    fruit[n]=parameters[1];
+                    fruit.add(parameters[1]);
                     n+=1;
-                    return String.format("%s was add", fruit[n-1]);
+                    return String.format("%s was add", fruit.get(n-1));
                 }
             } else if(url.getPath().contains("/search")){
                 String[] parameters = url.getQuery().split("=");
+                ArrayList<String> returnlist = new ArrayList<String>();
+                String text="";
+
                 if (parameters[0].equals("s")){
-                    if (parameters[1].equals("apple")){
-                        return String.format("apple");
+                    for (int i = 0; i < fruit.size(); i++){
+                        if(fruit.get(i).contains(parameters[1])){
+                            returnlist.add(fruit.get(i));
+                        }
                     }
-                    else{
-                        return String.format("Nothing");
+                    for (int i = 0; i < returnlist.size(); i++){
+                        text += returnlist.get(i);
+                        text += " ";
                     }
+                    return text;
                 }
             }
             
