@@ -7,10 +7,8 @@ class Handler implements URLHandler {
     // various requests.
     int num = 0;
     int n = 0;
-    // String[] fruit = new String[10];
     ArrayList<String> fruit = new ArrayList<String>();
     
-
     public String handleRequest(URI url) {
         if (url.getPath().equals("/")) {
             return String.format("Number: %d", num);
@@ -33,7 +31,6 @@ class Handler implements URLHandler {
                 String[] parameters = url.getQuery().split("=");
                 ArrayList<String> returnlist = new ArrayList<String>();
                 String text="";
-
                 if (parameters[0].equals("s")){
                     for (int i = 0; i < fruit.size(); i++){
                         if(fruit.get(i).contains(parameters[1])){
@@ -47,7 +44,6 @@ class Handler implements URLHandler {
                     return text;
                 }
             }
-            
             return "404 Not Found!";
         }
     }
